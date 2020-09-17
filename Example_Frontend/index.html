@@ -9,17 +9,103 @@
         <script src="logic/main.js"></script>
 
         <!-- Style -->
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins&display=swap" rel="stylesheet">
         <style>
             body {
-                background: darkgray;
+                background: white;
+            }
+
+            div.title {
+                height: 40vh;
+                padding-top: 25vh;
+            }
+
+            div.title > h1.maintitle {
+                font-family: 'DM Serif Display', serif;
+                font-size: 130px;
+                width: max-content;
+                margin: auto;
+            }
+
+            div.title > h2.subtitle {
+                font-family: 'Poppins', sans-serif;
+                font-size: 30px;
+                width: max-content;
+                margin: auto;
+
+                color: #444444;
+            }
+
+            div#Content {
+                max-width: 80.9vh;
+                margin: auto;
             }
 
             div.post {
                 width: auto;
                 min-height: 50vh;
+                min-width: 450px;
+                max-width: 80.9vh;
+
                 margin: 25px;
                 padding: 25px;
-                background: lightgrey;
+                background: white;
+                border-radius: 5px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                transition: box-shadow 1s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            div.post:nth-child(odd) {
+                padding-right: 175px;
+                /*text-align: left;*/
+            }
+
+            div.post:nth-child(even) {
+                padding-left: 175px;
+                /*text-align: right;*/
+            }
+
+            div.post:nth-child(even) h3 {
+                text-align: right;
+            }
+
+            div.post h3 {
+                font-family: 'DM Serif Display', serif;
+                font-style: italic;
+                font-size: 60px;
+
+                margin: 0;
+                display: block;
+                height: max-content;
+            }
+
+            div.post p {
+                font-family: 'Poppins', sans-serif;
+                font-size: 20px;
+
+                margin: 20px 60px;
+                display: block;
+
+                color: #444444;
+                /* Text truncation */
+                line-height: 1.6;
+                max-height: 4.0em; /* 2.5*lineHeight */
+                overflow: hidden;
+
+                transition: max-height 1s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            div.post:hover {
+                box-shadow: 0px 0px 20px 5px lightgray;
+            }
+
+            div.post:hover p {
+                /* For transitions to work correctly, we need to decide on a max number of lines allowed */
+                max-height: 100em;
+                color: black;
             }
 
             /* Loader code begin */
@@ -36,7 +122,7 @@
               animation: load7 1.8s infinite ease-in-out;
             }
             .loader {
-              color: lightgray;
+              color: #444444;
               font-size: 10px;
               margin: 80px auto;
               position: relative;
@@ -86,7 +172,10 @@
     </head>
 
     <body>
-        <h1>Welcome to Hmm...</h1>
+        <div class="title">
+            <h1 class="maintitle">Hmm...</h1>
+            <h2 class="subtitle">... your own place to share your thoughts</h2>
+        </div>
         <div id="Content">
             <!--div class="post">
                 <h3>Title</h3>

@@ -1,13 +1,15 @@
 window.onscroll = function() {GetNextContent()};
 window.onload = function() {GetNextContent()};
 
-var scrollChangePadding = 1200;
+var scrollChangePadding = 40;
 
 function GetNextContent()
 {
     if (loadingContent || AllContentLoaded()) return;
 
-    if (document.getElementById('ContentBottom').getBoundingClientRect().top < scrollChangePadding)
+    var viewportHeight = window.innerHeight;
+
+    if (document.getElementById('ContentBottom').getBoundingClientRect().top < viewportHeight + scrollChangePadding)
     {
         var con = RequestNewContent();
         setTimeout(AddNewContent(con), 2500);
