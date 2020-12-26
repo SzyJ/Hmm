@@ -12,6 +12,7 @@ import (
 var ROOT_DIR string = "./posts/"
 var POST_MAP map[int]string
 var RETURN_COUNT int = 5
+var ID_STR_LEN int = 4
 
 var largestId int = 0
 var smallestId int = 0
@@ -39,18 +40,18 @@ func SetupData() {
 		var sb strings.Builder
 
 		strName := file.Name()
-		if len(strName) < 4 {
+		if len(strName) < ID_STR_LEN+1 {
 			continue
 		}
 
-		fileId, err := strconv.Atoi(strName[:3])
+		fileId, err := strconv.Atoi(strName[:ID_STR_LEN])
 		if err != nil {
 			continue
 		}
 
-		sb.WriteString(strName[:3])
+		sb.WriteString(strName[:ID_STR_LEN])
 		sb.WriteByte('\000')
-		sb.WriteString(strName[3:])
+		sb.WriteString(strName[ID_STR_LEN:])
 		sb.WriteByte('\000')
 		sb.WriteString(readFile(ROOT_DIR + strName))
 		sb.WriteByte('\000')
@@ -81,7 +82,7 @@ func GetNext(fromID int) (string, int) {
 		fromID -= 1
 	}
 
-	return "000", 0
+	return "0000", 0
 }
 
 func InitRequest(w http.ResponseWriter, r *http.Request) {
