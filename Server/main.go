@@ -3,8 +3,9 @@ package main
 import (
 	"./handlers"
 	"fmt"
-	//	"github.com/gorilla/mux"
-	//	"net/http"
+	"github.com/gorilla/mux"
+	"log"
+	"net/http"
 	"os"
 	"strconv"
 )
@@ -31,17 +32,15 @@ func getValidPort() string {
 }
 
 func main() {
-
 	handlers.SetupData()
-	//	port := getValidPort()
-	//
-	//	router := mux.NewRouter().StrictSlash(true)
-	//
-	//	router.HandleFunc("/request/init", handlers.InitRequest)
-	//	router.HandleFunc("/request/new", handlers.NewRequestUsage)
-	//	router.HandleFunc("/request/new/{lastId}", handlers.NewRequest)
-	//
-	//	fmt.Print("Server started on port " + port + "...")
-	//
-	//	log.Fatal(http.ListenAndServe(":"+port, router))
+	port := getValidPort()
+
+	router := mux.NewRouter().StrictSlash(true)
+	router.HandleFunc("/request/init", handlers.InitRequest)
+
+	router.HandleFunc("/request/new", handlers.NewRequestUsage)
+	router.HandleFunc("/request/new/{lastId}", handlers.NewRequest)
+
+	fmt.Print("Server started on port " + port + "...")
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }

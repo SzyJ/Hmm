@@ -53,6 +53,7 @@ func SetupData() {
 		sb.WriteString(strName[3:])
 		sb.WriteByte('\000')
 		sb.WriteString(readFile(ROOT_DIR + strName))
+		sb.WriteByte('\000')
 
 		if smallestId == 0 || fileId < smallestId {
 			smallestId = fileId
@@ -84,8 +85,26 @@ func GetNext(fromID int) (string, int) {
 }
 
 func InitRequest(w http.ResponseWriter, r *http.Request) {
+	var nextDataID int
+	nextDataID = largestId
 
-	fmt.Fprintf(w, "Init Request Test\n")
+	var payload string
+	var sb strings.Builder
+
+	stepper := 0
+	for stepper < RETURN_COUNT {
+		payload, nextDataID = GetNext(nextDataID)
+		sb.WriteString(payload)
+		fmt.Fprintf(w, payload)
+		if nextDataID == 0 {
+			return
+		}
+
+		nextDataID -= 1
+		stepper += 1
+	}
+
+	//fmt.Fprintf(w, "Init Request Test\n")
 }
 
 func NewRequestUsage(w http.ResponseWriter, r *http.Request) {
@@ -96,5 +115,27 @@ func NewRequest(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	idStr := vars["lastId"]
 
-	fmt.Fprintf(w, "New Request Test id=%s\n", idStr)
+	nextDataID, err := strconv.Atoi(idStr)
+	if err != nil {
+		fmt.Printf("Error: Invalid ID")
+		return
+	}
+
+	var payload string
+	var sb strings.Builder
+
+	stepper := 0
+	for stepper < RETURN_COUNT {
+		payload, nextDataID = GetNext(nextDataID)
+		sb.WriteString(payload)
+		fmt.Fprintf(w, payload)
+		if nextDataID == 0 {
+			return
+		}
+
+		nextDataID -= 1
+		stepper += 1
+	}
+
+	//fmt.Fprintf(w, "New Request Test id=%s\n", idStr)
 }
