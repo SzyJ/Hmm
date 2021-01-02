@@ -36,11 +36,13 @@ func main() {
 	port := getValidPort()
 
 	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/request/init", handlers.InitRequest)
+	router.HandleFunc("/request/init", handlers.InitRequest).Methods(http.MethodGet, http.MethodPut, http.MethodPatch, http.MethodOptions)
 
-	router.HandleFunc("/request/new", handlers.NewRequestUsage)
-	router.HandleFunc("/request/new/{lastId}", handlers.NewRequest)
+	router.HandleFunc("/request/new", handlers.NewRequestUsage).Methods(http.MethodGet, http.MethodPut, http.MethodPatch, http.MethodOptions)
+	router.HandleFunc("/request/new/{lastId}", handlers.NewRequest).Methods(http.MethodGet, http.MethodPut, http.MethodPatch, http.MethodOptions)
 
 	fmt.Print("Server started on port " + port + "...")
+
+	router.Use(mux.CORSMethodMiddleware(router))
 	log.Fatal(http.ListenAndServe(":"+port, router))
 }

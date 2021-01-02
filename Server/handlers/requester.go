@@ -86,6 +86,11 @@ func GetNext(fromID int) (string, int) {
 }
 
 func InitRequest(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	if r.Method == http.MethodOptions {
+		return
+	}
+
 	var nextDataID int
 	nextDataID = largestId
 
@@ -109,10 +114,20 @@ func InitRequest(w http.ResponseWriter, r *http.Request) {
 }
 
 func NewRequestUsage(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	if r.Method == http.MethodOptions {
+		return
+	}
+
 	fmt.Fprintf(w, "Usage: /request/new/{last received Id}\n")
 }
 
 func NewRequest(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	if r.Method == http.MethodOptions {
+		return
+	}
+
 	vars := mux.Vars(r)
 	idStr := vars["lastId"]
 
