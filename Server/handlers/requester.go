@@ -5,6 +5,7 @@ import (
 	"github.com/gorilla/mux"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -18,20 +19,28 @@ var largestId int = 0
 var smallestId int = 0
 
 func readFile(filename string) string {
-	//fmt.Println("Printing: " + filename)
-
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return ""
 	}
 
 	return string(content)
-	//	fmt.Printf("File contents: %q", content)
 }
 
 func SetupData() {
 	POST_MAP = make(map[int]string)
-	files, err := ioutil.ReadDir(ROOT_DIR)
+	// 0      , 1   , 2
+	// exeName, port, path
+	arguments := os.Args[2:]
+
+	var pathArg string
+	if len(arguments) == 0 {
+		pathArg = ROOT_DIR
+	} else {
+		pathArg = arguments[0]
+	}
+
+	files, err := ioutil.ReadDir(pathArg)
 	if err != nil {
 		return
 	}
@@ -58,7 +67,7 @@ func SetupData() {
 		sb.WriteByte('\000')
 		sb.WriteString(strName[ID_STR_LEN:])
 		sb.WriteByte('\000')
-		sb.WriteString(readFile(ROOT_DIR + strName))
+		sb.WriteString(readFile(pathArg + strName))
 		sb.WriteByte('\000')
 
 		if smallestId == 0 || fileId < smallestId {
@@ -70,8 +79,6 @@ func SetupData() {
 		}
 
 		POST_MAP[fileId] = sb.String()
-
-		//fmt.Printf("sb: %q\n", sb.String())
 	}
 }
 
@@ -114,8 +121,6 @@ func InitRequest(w http.ResponseWriter, r *http.Request) {
 		nextDataID -= 1
 		stepper += 1
 	}
-
-	//fmt.Fprintf(w, "Init Request Test\n")
 }
 
 func OneRequestUsage(w http.ResponseWriter, r *http.Request) {
@@ -145,6 +150,7 @@ func OneRequest(w http.ResponseWriter, r *http.Request) {
 
 	payload, found := POST_MAP[dataID]
 
+	// ID not found
 	if !found {
 		fmt.Fprintf(w, "0000\000ID not found\000")
 		return
