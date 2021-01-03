@@ -1,6 +1,8 @@
 var loadingContent = false;
 var lastResponseId = -1;
 
+const URL = "https://szy.wtf/sslapi/hmm-example/"
+
 function InitialContentRequest()
 {
     var responseStr;
@@ -15,7 +17,7 @@ function InitialContentRequest()
         }
         loadingContent = false;
     };
-    xhttp.open("GET", "http://szy.wtf:8090/request/init", true);
+    xhttp.open("GET", URL + "request/init", true);
     xhttp.send();
 }
 
@@ -33,7 +35,7 @@ function NextContentRequest(lastReceivedId)
         }
         loadingContent = false;
     };
-    xhttp.open("GET", "http://szy.wtf:8090/request/next/" + lastReceivedId, true);
+    xhttp.open("GET", URL + "request/next/" + lastReceivedId, true);
     xhttp.send();
 }
 
