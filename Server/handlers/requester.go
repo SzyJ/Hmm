@@ -113,6 +113,41 @@ func InitRequest(w http.ResponseWriter, r *http.Request) {
 	//fmt.Fprintf(w, "Init Request Test\n")
 }
 
+func OneRequestUsage(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	if r.Method == http.MethodOptions {
+		return
+	}
+
+	fmt.Fprintf(w, "Usage: /request/one/{post Id}\n")
+}
+
+func OneRequest(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	if r.Method == http.MethodOptions {
+		return
+	}
+
+	vars := mux.Vars(r)
+	idStr := vars["requestId"]
+	dataID, err := strconv.Atoi(idStr)
+
+	// Invalid ID provided
+	if err != nil {
+		fmt.Fprintf(w, "0000\000Invalid ID\000")
+		return
+	}
+
+	payload, found := POST_MAP[dataID]
+
+	if !found {
+		fmt.Fprintf(w, "0000\000ID not found\000")
+		return
+	}
+
+	fmt.Fprintf(w, payload)
+}
+
 func NewRequestUsage(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	if r.Method == http.MethodOptions {
@@ -152,6 +187,4 @@ func NewRequest(w http.ResponseWriter, r *http.Request) {
 		nextDataID -= 1
 		stepper += 1
 	}
-
-	//fmt.Fprintf(w, "New Request Test id=%s\n", idStr)
 }

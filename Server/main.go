@@ -41,6 +41,10 @@ func main() {
 	router.HandleFunc("/request/new", handlers.NewRequestUsage).Methods(http.MethodGet, http.MethodPut, http.MethodPatch, http.MethodOptions)
 	router.HandleFunc("/request/new/{lastId}", handlers.NewRequest).Methods(http.MethodGet, http.MethodPut, http.MethodPatch, http.MethodOptions)
 
+	router.HandleFunc("/request/one/", handlers.OneRequestUsage).Methods(http.MethodGet, http.MethodPut, http.MethodPatch, http.MethodOptions)
+
+	router.HandleFunc("/request/one/{requestId}", handlers.OneRequest).Methods(http.MethodGet, http.MethodPut, http.MethodPatch, http.MethodOptions)
+
 	fmt.Print("Server started on port " + port + "...")
 
 	router.Use(mux.CORSMethodMiddleware(router))
