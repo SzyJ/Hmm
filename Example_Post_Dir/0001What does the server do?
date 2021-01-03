@@ -1,45 +1,45 @@
 The server uses a basic REST API structre where when a post is returned, it is in the following structure
-
+<br>
 {ID of the post}{Date of last modified}{Title}{Content}
-
+<br>
 each of the sections, is seperated by a \000 (null terminator) byte. There is a \000 between each post returned too. So when your frontend receives a collection of posts, all you have to do is split the string on \000 and iterate over each of the sections (0, 1, 2, 3 is first post, 4, 5, 6,7 is second and so on...). By default 3 posts will be returned from one request.
-
+<br>
 If the ID section of a post is 0000, there will be no more sections after it so check the ID of each post first to avoid index out of bounds.
-
-
-
+<br>
+<br>
+<br>
 Why not just use JSON? A simple array of bytes being sent is easier to understand IMO and there is no need to overcomplicate things. If I need to update this to JSON, I might.
-
-
-
-
+<br>
+<br>
+<br>
+<br>
 API endpoints:
-
+<br>
 your.website.com:8090/request/init
-
+<br>
 Return up to 3 highest ID posts. Use this as the first call to the server.
-
-
-
+<br>
+<br>
+<br>
 your.website.com:8090/request/next/{Last Received ID}
-
+<br>
 Return the 3 next highest ID posts after the provided ID. The last ID received will be the ID from the 3rd post of the init request or the 3rd post from the last next request. Once you receive a post with ID 0000, you have received all posts already and dont need to call this anymore.
-
-
-
+<br>
+<br>
+<br>
 your.website.com:8090/request/one/{Post ID}
-
+<br>
 Return only one post with the given ID. If an invalid value is given or a post with that ID doesn't exist, returns 0000 instead. If 0000 is returned, an error message can be found after the null terminator. Use this if you want to display a page with only one post (eg for purposes of sharing a link with a perticular post)
-
-
-
-
-
+<br>
+<br>
+<br>
+<br>
+<br>
 Since this is just a simple HTTP GET request, you can see what is returned for yourself by using curl in your terminal. Be warned that there may be some issues for you when displaying \000 character in the terminal or text editor.
 Try these:
-
+<br>
 http://szy.wtf:8090/request/init
-
+<br>
 http://szy.wtf:8090/request/next
-
+<br>
 http://szy.wtf:8090/request/one

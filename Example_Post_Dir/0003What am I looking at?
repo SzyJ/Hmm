@@ -1,8 +1,8 @@
 One of the main design goals of this project was to make the understanding of how to use it as intuative as possible. The basic idea is that each of these blocks of text is a file in a given directory, and the titles at the top of the text is just the file name. Adding a new post, removinf an old one or modifying anything is as simple as just adding, deleting or changing a file.
-
-
+<br>
+<br>
 I specifically wanted to avoid any databases as that just adds unnecessery dependecies, setup and barrier to entry. The usage is as simple as running the executrable on your server with the parameters of PORT and PATH.
-
+<br>
 PORT (default 8090): What port the server should be serving to?
-
+<br>
 PATH (default "./posts/"): Where the directory with your posts is.

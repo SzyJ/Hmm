@@ -1,10 +1,10 @@
 By default, reading the contents of a directory on Linux returns the files in alphabetical order so an ID system is used to keep the posts ordered. The filename of each post is expected to be in the format of 4 digits of numerical id (this one is '0002How do I structure my posts?' for example) followed by the title. This provides some limitations of what characters can be used as a title but some special characters and spaces can still be used as you can see in the title of these posts.
-
-
+<br>
+<br>
 The lowest allowed post ID can be 0001 as returning an ID of 0000 indicates to the frontend that no more posts exist. Also, you dont need to worry about missing IDs in a sequence (0001, 0002, 0004...), that is handled as you would expect which lets you delete old posts easily without having to rename a bunch of files.
-
-
+<br>
+<br>
 The way you display any information returned is up to you. All that the server does is return the contents of a file so you could have full HTML in a file and just concatonate it to the end of a website or simply have text and allow the frontend to create a new p tag and insert this text inside it (this is what this website is doing). Either way, formatting can be done easily with simple HTML eg <strong>strong</strong>...
-
-
+<br>
+<br>
 How you use this is up to you, maybe there is a different way to use it other than streaming content to a website?
