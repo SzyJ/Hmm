@@ -11,8 +11,6 @@ function GetNextContent()
 
     if (document.getElementById('ContentBottom').getBoundingClientRect().top < viewportHeight + scrollChangePadding)
     {
-        //var con = RequestNewContent();
-        //setTimeout(AddNewContent(con), 2500);
         RequestNewContent();
     }
 }
@@ -25,10 +23,12 @@ function AddNewContent(content)
         var postId = splitContent[idIterator];
         if (postId.length > 0 && !isNaN(postId) && postId != "0000")
         {
-            //Date string: splitContent[idIterator + 1];
-
             var postTitle = document.createElement("h3");
             postTitle.innerHTML = splitContent[idIterator + 2];
+
+            var postDate = document.createElement("p");
+            postDate.innerHTML = splitContent[idIterator + 1]
+            postDate.className = "date";
 
             var postText = document.createElement("p");
             postText.innerHTML = splitContent[idIterator + 3];
@@ -37,6 +37,7 @@ function AddNewContent(content)
             newPost.className = "post";
 
             newPost.appendChild(postTitle);
+            newPost.appendChild(postDate);
             newPost.appendChild(postText);
 
             document.getElementById('Content').insertBefore(newPost, document.getElementById('ContentBottom'));
