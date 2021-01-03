@@ -18,7 +18,7 @@ var largestId int = 0
 var smallestId int = 0
 
 func readFile(filename string) string {
-	fmt.Println("Printing: " + filename)
+	//fmt.Println("Printing: " + filename)
 
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -49,7 +49,12 @@ func SetupData() {
 			continue
 		}
 
+		dateStr := file.ModTime().Format("2 Jan 2006")
+		fmt.Printf("name: %s\t\tDate: %s\n", strName, dateStr)
+
 		sb.WriteString(strName[:ID_STR_LEN])
+		sb.WriteByte('\000')
+		sb.WriteString(dateStr)
 		sb.WriteByte('\000')
 		sb.WriteString(strName[ID_STR_LEN:])
 		sb.WriteByte('\000')
@@ -66,7 +71,7 @@ func SetupData() {
 
 		POST_MAP[fileId] = sb.String()
 
-		fmt.Printf("sb: %q\n", sb.String())
+		//fmt.Printf("sb: %q\n", sb.String())
 	}
 }
 

@@ -20,23 +20,25 @@ function GetNextContent()
 function AddNewContent(content)
 {
     var splitContent = content.split("\0");
-    for (var idIterator = 0; idIterator < splitContent.length; idIterator += 3)
+    for (var idIterator = 0; idIterator < splitContent.length; idIterator += 4)
     {
         var postId = splitContent[idIterator];
         if (postId.length > 0 && !isNaN(postId) && postId != "0000")
         {
+            //Date string: splitContent[idIterator + 1];
+
             var postTitle = document.createElement("h3");
-            postTitle.innerHTML = splitContent[idIterator + 1];
+            postTitle.innerHTML = splitContent[idIterator + 2];
 
             var postText = document.createElement("p");
-            postText.innerHTML = splitContent[idIterator + 2];
-            
+            postText.innerHTML = splitContent[idIterator + 3];
+
             var newPost = document.createElement("div");
             newPost.className = "post";
 
             newPost.appendChild(postTitle);
             newPost.appendChild(postText);
-            
+
             document.getElementById('Content').insertBefore(newPost, document.getElementById('ContentBottom'));
         }
     }
