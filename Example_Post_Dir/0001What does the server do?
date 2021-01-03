@@ -31,8 +31,8 @@ Return only one post with the given ID. If an invalid value is given or a post w
 Since this is just a simple HTTP GET request, you can see what is returned for yourself by using curl in your terminal. Be warned that there may be some issues for you when displaying <span class="code">\000</span> character in the terminal or text editor.
 Try these:
 <br>
-<span class="code">curl http://szy.wtf:8090/request/init</span>
+<span class="code">curl api.szy.wtf/hmm-example/request/init</span>
 <br>
-<span class="code">curl http://szy.wtf:8090/request/next</span>
+<span class="code">curl api.szy.wtf/hmm-example/request/next</span>
 <br>
-<span class="code">curl http://szy.wtf:8090/request/one</span>
+<span class="code">curl api.szy.wtf/hmm-example/request/one</span>
