@@ -41,7 +41,7 @@ func main() {
 	router.HandleFunc("/request/next", handlers.NewRequestUsage).Methods(http.MethodGet, http.MethodPut, http.MethodPatch, http.MethodOptions)
 	router.HandleFunc("/request/next/{lastId}", handlers.NewRequest).Methods(http.MethodGet, http.MethodPut, http.MethodPatch, http.MethodOptions)
 
-	router.HandleFunc("/request/one/", handlers.OneRequestUsage).Methods(http.MethodGet, http.MethodPut, http.MethodPatch, http.MethodOptions)
+	router.HandleFunc("/request/one", handlers.OneRequestUsage).Methods(http.MethodGet, http.MethodPut, http.MethodPatch, http.MethodOptions)
 
 	router.HandleFunc("/request/one/{requestId}", handlers.OneRequest).Methods(http.MethodGet, http.MethodPut, http.MethodPatch, http.MethodOptions)
 
