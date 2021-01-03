@@ -48,5 +48,6 @@ func main() {
 	fmt.Print("Server started on port " + port + "...")
 
 	router.Use(mux.CORSMethodMiddleware(router))
+	router.Schemes("https")
 	log.Fatal(http.ListenAndServe(":"+port, router))
 }
