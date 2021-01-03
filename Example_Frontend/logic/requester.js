@@ -94,7 +94,7 @@ function NextContentRequest(lastReceivedId)
 function GetLastIdInContent(content)
 {
     var splitArray = content.split("\0");
-    for (var idIterator = 0; idIterator < splitArray.length; idIterator += 3)
+    for (var idIterator = 0; idIterator < splitArray.length; idIterator += 4)
     {
         var postId = splitArray[idIterator];
 
